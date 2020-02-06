@@ -4,6 +4,8 @@
 }
 #grid {
     background-color: grey;
+    width: 500px;
+    height: 500px;
     padding: 1px 1px;
     display: grid;
     grid-template-columns: repeat(var(--grid-cols), 1fr);

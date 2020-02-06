@@ -1,38 +1,46 @@
-const generateGrid = function (
-    gridItemQuantity,
-    gridId,
-    gridItemClass,
-    gridDimensions
-) {
-    const grid = document.createElement('div');
+const generateGridItem = function () {
+    let gridItem = document.createElement('div');
 
-    grid.id = `${gridId}`;
-    grid.style.width = `${gridDimensions}px`;
-    grid.style.height = `${gridDimensions}px`;
+    gridItem.classList = 'grid-item';
+    gridItem.style.backgroundColor = 'white';
+    gridItem.addEventListener('mouseover', () => 
+        gridItem.style.setProperty('background-color', '#222')
+    );
+    return gridItem;
+}
+
+const generateGrid = function (gridItemQuantity) {
+    const grid = document.createElement('div');
+    const gridResolution = gridItemQuantity * gridItemQuantity;
+
+    grid.id = 'grid';
     grid.style.setProperty('--grid-cols', gridItemQuantity);
     grid.style.setProperty('--grid-rows', gridItemQuantity);
 
-    const gridResolution = gridItemQuantity * gridItemQuantity;
-
     for (let i = 0; i < gridResolution; i++) {
-        let gridItem = document.createElement('div');
-        gridItem.classList = gridItemClass;
-        gridItem.style.backgroundColor = 'white';
-        grid.appendChild(gridItem);
+        grid.appendChild(generateGridItem());
     }
-    console.log(grid);
+
     return grid;
 }
 
-document.querySelector('body').appendChild(
-    generateGrid(16, 'grid', 'grid-item', 500)
-);
+document.querySelector('#btn-reset').addEventListener('click', () => {
+    let newGridNumber = NaN;
+    while (isNaN(newGridNumber) == true) {
+        newGridNumber = prompt('Enter Squares Per Side (max number = 100)');
+        newGridNumber = Number.parseInt(newGridNumber);
+    }
 
-const gridItems = document.querySelectorAll('.grid-item');
+    if (newGridNumber > 100) {
+        newGridNumber = 100;
+    } else if (newGridNumber < 1) {
+        newGridNumber = 1;
+    }
 
-gridItems.forEach((item) => {
-    item.style.backgroundColor = 'white';
-    item.addEventListener('mouseover', () => 
-        item.style.setProperty('background-color', '#222')
-    );
+    const newGrid = generateGrid(newGridNumber);
+    document.getElementById('grid').remove();
+    document.querySelector('body').appendChild(newGrid);
 });
+
+const newGrid = generateGrid(16);
+document.querySelector('body').appendChild(newGrid);
