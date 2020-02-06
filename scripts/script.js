@@ -1,22 +1,38 @@
-let generateGrid = function(gridSize, gridId, rowClass, rowMemberClass) {
+const generateGrid = function (
+    gridItemQuantity,
+    gridId,
+    gridItemClass,
+    gridDimensions
+) {
     const grid = document.createElement('div');
-    grid.id = `${gridId}`;
-    for (let i = 0; i < gridSize; i++) {
-        let row = document.createElement('div');
-        row.className = `${rowClass}`;
-        for (let j = 0; j < gridSize; j++) {
-            let rowMember = document.createElement('div');
-            rowMember.className = `${rowMemberClass}`;
-            rowMember.style.backgroundColor = 'black';
-            rowMember.style.display = 'inline-block';
-            rowMember.style.width = '10px';
-            rowMember.style.height = '10px';
-            row.appendChild(rowMember);
-        }
-        grid.appendChild(row);
-    }
 
+    grid.id = `${gridId}`;
+    grid.style.width = `${gridDimensions}px`;
+    grid.style.height = `${gridDimensions}px`;
+    grid.style.setProperty('--grid-cols', gridItemQuantity);
+    grid.style.setProperty('--grid-rows', gridItemQuantity);
+
+    const gridResolution = gridItemQuantity * gridItemQuantity;
+
+    for (let i = 0; i < gridResolution; i++) {
+        let gridItem = document.createElement('div');
+        gridItem.classList = gridItemClass;
+        gridItem.style.backgroundColor = 'white';
+        grid.appendChild(gridItem);
+    }
+    console.log(grid);
     return grid;
 }
 
-document.querySelector('body').appendChild(generateGrid(4, 'grid', 'row', 'rowMember'));
+document.querySelector('body').appendChild(
+    generateGrid(16, 'grid', 'grid-item', 500)
+);
+
+const gridItems = document.querySelectorAll('.grid-item');
+
+gridItems.forEach((item) => {
+    item.style.backgroundColor = 'white';
+    item.addEventListener('mouseover', () => 
+        item.style.setProperty('background-color', '#222')
+    );
+});
