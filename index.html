@@ -8,6 +8,30 @@
         <link href="styles/styles.css" rel="stylesheet">
     </head>
     <body>
-        <button id="btn-reset">New Grid</button>
+        <div id="title" class="std-font">
+            <h4>Alex Burman presents</h4>
+            <h1>Etch-a-Sketch!</h1>
+        </div>
+        <div id="content-area">
+            <div id="sketch-menu" class="std-font">
+                <button id="btn-reset">Refresh</button>
+                <div id="fill-selection">
+                    <div>
+                        <input type="radio" id="black" name="fill" value="black" checked>
+                        <label for="black">Solid Black</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="fade" name="fill" value="fade">
+                        <label for="fade">Black Fade-In</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="color" name="fill" value="color">
+                        <label>Random Colors</label>
+                    </div>
+                </div>
+            </div>
+            <div id="sketch-grid-container"></div>
+            <div id="bottom"></div>
+        </div>
         <script src="scripts/script.js"></script>
     </body>
